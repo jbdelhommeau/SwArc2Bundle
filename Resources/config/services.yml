@@ -1,0 +1,7 @@
+parameters:
+#    sw_arc2.example.class: Sw\Arc2Bundle\Example
+
+services:
+#    sw_arc2.example:
+#        class: %sw_arc2.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
