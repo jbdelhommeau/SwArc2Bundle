@@ -47,5 +47,7 @@ class SparqlEndpointController
         }
         
         $ep->go();
+        return; 
+        // and that's, ARC2 handles everything else
     }
 }
