@@ -20,7 +20,7 @@ class SparqlEndpoint
     private $_arc = '';
     
     /**
-     * @var boolean Is the endpoint available. 
+     * @var boolean Is the endpoint available on the specified URL; otherwise, only by this service. 
      */
     private $_active = true; 
     
@@ -45,11 +45,6 @@ class SparqlEndpoint
         $this->_active      = (bool) $sparql[0]; 
         $this->_url         = $sparql[1]; 
         $this->_autocreate  = (bool) $sparql[4];
-        
-        if(! $this->_active)
-        {
-            return; 
-        }
         
         $feat = array(); 
         
@@ -94,6 +89,12 @@ class SparqlEndpoint
         require($this->_arc . '/ARC2.php'); 
     }
     
+    /**
+     * If this service cannot create the tables and they are not created, returns false. 
+     * Otherwise, returns an endpoint instance (may the tables have been created or not). 
+     * 
+     * @return boolean or ARC2_StoreEndpoint
+     */
     public function getEndpoint()
     {
         $ep = \ARC2::getStoreEndpoint($this->_options);
@@ -112,9 +113,27 @@ class SparqlEndpoint
         
         return $ep; 
     }
-    
-    public function launchEndpoint()
+    /**
+     * Draws the endpoint **immediately**. 
+     */
+    public function drawEndpoint()
     {
-        return $this->getEndpoint()->go();
+        $this->getEndpoint()->go();
+    }
+    
+    /**
+     * Returns the HTML code for the endpoint. 
+     * 
+     * Note: This will also define some headers, which could interfere with Sf2. 
+     * 
+     * @todo Understand the headers and try to plug it into Sf2 (not the main goal of 
+     * the bundle, will most probably not be done). 
+     */
+    public function getEndpoint()
+    {
+        $ep = $this->getEndpoint(); 
+        $ep->handleRequest();
+        $ep->sendHeaders(); 
+        return $this->getResult();
     }
 }
