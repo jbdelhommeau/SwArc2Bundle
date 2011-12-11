@@ -19,10 +19,11 @@ class SwArc2Extension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        var_dump($configs); 
+//        var_dump($configs); 
 //        exit;
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+        $this->bindParameter($container, 'sw_arc2', $config); 
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
@@ -30,7 +31,7 @@ class SwArc2Extension extends Extension
     
     /**
      * Set the given parameter (and children) to the given container
-	 
+     *
      * @param ContainerBuilder $container
      * @param string $name
      * @param mixed $value
