@@ -35,6 +35,8 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('sparql_endpoint')
                     ->addDefaultsIfNotSet()
                     ->children()
+                        ->scalarNode('active')   ->defaultValue(true)        ->end()
+                        ->scalarNode('url')      ->defaultValue('/sparql')   ->end()
                         ->scalarNode('store')    ->defaultValue('sandbox')   ->end()
                         ->scalarNode('timeout')  ->defaultValue('60')        ->end()
                         ->scalarNode('read_key') ->defaultValue('')          ->end()
@@ -55,7 +57,8 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-            ->end();
+            ->end()
+        ;
 
         return $treeBuilder;
     }
