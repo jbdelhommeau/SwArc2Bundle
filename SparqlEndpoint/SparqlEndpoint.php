@@ -129,7 +129,7 @@ class SparqlEndpoint
      * @todo Understand the headers and try to plug it into Sf2 (not the main goal of 
      * the bundle, will most probably not be done). 
      */
-    public function getEndpoint()
+    public function getEndpointData()
     {
         $ep = $this->getEndpoint(); 
         $ep->handleRequest();
