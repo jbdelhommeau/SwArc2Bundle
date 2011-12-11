@@ -2,6 +2,10 @@ parameters:
 #    sw_arc2.example.class: Sw\Arc2Bundle\Example
 
 services:
-#    sw_arc2.example:
-#        class: %sw_arc2.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    sw_arc2.sparql:
+        class: %sw_arc2.sparql.class%
+        arguments: 
+            - %sw_arc2.arc2_path%
+            - [%sw_arc2.database.host%, %sw_arc2.database.user%, %sw_arc2.database.password%, %sw_arc2.database.database%]
+            - [%sw_arc2.sparql_endpoint.active%, %sw_arc2.sparql_endpoint.url%, %sw_arc2.sparql_endpoint.store%, %sw_arc2.sparql_endpoint.autocreate%, %sw_arc2.sparql_endpoint.timeout%, %sw_arc2.sparql_endpoint.read_key%, %sw_arc2.sparql_endpoint.write_key%, %sw_arc2.sparql_endpoint.limit%]
+            - [%sw_arc2.sparql_endpoint.features.select%, %sw_arc2.sparql_endpoint.features.construct%, %sw_arc2.sparql_endpoint.features.ask%, %sw_arc2.sparql_endpoint.features.describe%, %sw_arc2.sparql_endpoint.features.load%, %sw_arc2.sparql_endpoint.features.insert%, %sw_arc2.sparql_endpoint.features.delete%, %sw_arc2.sparql_endpoint.features.dump%]
