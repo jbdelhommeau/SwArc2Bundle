@@ -10,9 +10,10 @@ namespace Sw\Arc2Bundle\Triples;
 class Triple
 {
     private $_s; 
+//    private $_s_bnode = false; 
     private $_p; 
     private $_o; 
-    private $_o_bnode = false; 
+//    private $_o_bnode = false; 
     private $_o_datatype; 
     private $_o_lang; 
     private $_subtriples = array(); 
@@ -30,21 +31,25 @@ class Triple
      */
     public function __construct($subject, $predicate, $object = null, $object_datatype = '', $object_lang = '')
     {
-        // If $object is not an object, it refers to a blank node. 
+        // If $subject is not an object, it refers to a blank node. 
         if(is_object($subject) && ! in_array(get_class($subject), array('Sw\Arc2Bundle\Triples\Triple', 'Sw\Arc2Bundle\Triples\URI')))
             throw new InvalidArgumentException('Subject ' . $subject . ' must be a triple or an URI. (' . $subject . ';' . $predicate . ';' . $object . ')'); 
         
         $this->_s = $subject; 
+//        $this->_s_bnode = (is_object($subject)) ? false : true; 
         $this->_p = $predicate; 
-        $this->_o = ($object != null) ? $object : rand(); 
-        $this->_o_bnode = ($object != null) ? true : false; 
+        $this->_o = $object; //($object != null) ? $object : rand(); 
+        $this->_o_bnode = ($object == null) ? rand() : null; 
+//        $this->_o_bnode = ($object != null) ? true : false; 
         $this->_o_datatype = $object_datatype; 
         $this->_o_lang = $object_lang; 
     }
     
     public function addBlankNode($predicate, $object, $object_datatype = '', $object_lang = '')
     {
-        $this->_subtriples[] = new Triple($this->_o, $predicate, $object, $object_datatype, $object_lang); 
+        $t = new Triple($this->_o, $predicate, $object, $object_datatype, $object_lang); 
+        $this->_subtriples[] = $t; 
+        return $t; 
     }
     
     /**
@@ -59,10 +64,10 @@ class Triple
         
         $ret[] = array  (
                             's' => (string) $this->_s, 
-                            's_type' => $this->getType($this->_s), 
+                            's_type' => $this->getType($this->_s), //($this->_o_bnode) ? 'bnode' : $this->getType($this->_s), 
                             'p' => (string) $this->_p, 
                             'o' => (string) $this->_o, 
-                            'o_type' => $this->getType($this->_o), 
+                            'o_type' => $this->getType($this->_o), //($this->_s_bnode) ? 'bnode' : $this->getType($this->_o), 
                             'o_datatype' => $this->_o_datatype,
                             'o_lang' => $this->_o_lang
                         ); 
@@ -71,7 +76,8 @@ class Triple
         {
             foreach($this->_subtriples as $bn)
             {
-                $ret[] = $bn->toArcTriples(); 
+                $b = $bn->toArcTriples(); 
+                $ret[] = $b[0]; 
             }
         }
         
