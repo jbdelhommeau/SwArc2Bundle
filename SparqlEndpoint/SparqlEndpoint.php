@@ -118,7 +118,17 @@ class SparqlEndpoint
      */
     public function drawEndpoint()
     {
-        $this->getEndpoint()->go();
+        $uri = new \Sw\Arc2Bundle\Triples\URI('data'); 
+        $t = new \Sw\Arc2Bundle\Triples\Triple($uri, $uri); 
+        $t->addBlankNode($uri, $uri); 
+        var_dump($t->toArcTriples()); 
+//        $parser = \ARC2::getRDFXMLParser();
+//        $parser->parse('http://www.pipm.fr/foaf/foaf.rdf');
+//        $triples = $parser->getTriples();
+//        var_dump($triples);
+        exit; 
+        
+//        $this->getEndpoint()->go();
     }
     
     /**
