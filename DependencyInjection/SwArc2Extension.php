@@ -19,10 +19,34 @@ class SwArc2Extension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+        var_dump($configs); 
+//        exit;
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+    }
+    
+    /**
+     * Set the given parameter (and children) to the given container
+	 
+     * @param ContainerBuilder $container
+     * @param string $name
+     * @param mixed $value
+     */
+    private function bindParameter(ContainerBuilder $container, $name, $value)
+    {
+        if (is_array($value))
+        {
+            foreach ($value as $index => $val)
+            {
+                $this->bindParameter($container, $name. '.' .$index, $val);
+            }
+        }
+        else
+        {
+            $container->setParameter($name, $value);
+        }
     }
 }
