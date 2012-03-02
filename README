@@ -1,5 +1,54 @@
 To get access to ARC2 classes, configure ARC2's path (config.yml)
 		sw_arc2: 
 			arc2_path: %kernel.root_dir%/../vendor/arc2/
-include this bundle as usual. You will only have to import one service to have access to all ARC2. For example, in a controller: 
+Include this bundle as usual. You will only have to import one service to have access to all ARC2. For example, in a controller: 
 		$this->get('sw_arc2')
+		
+		
+		
+You want to use DBpedia? Include the ARC2 service, use the convenience class Sw\Arc2Bundle\Sparql\DbPedia: 
+		$this->get('sw_arc2'); 
+		$db = new \Sw\Arc2Bundle\Sparql\DbPedia(); 
+		$db->getInterests('Europe');
+		
+		
+		
+You want a SPARQL endpoint? They need more configuration: 
+		sw_arc2: 
+		arc2_path: %kernel.root_dir%/../vendor/arc2/
+		# The database to use (only MySQL, requirement from ARC2). 
+		database: 
+			host: localhost
+			user: root
+			password: ~
+			database: symfony
+		# Configuration for the SPARQL endpoint
+		sparql_endpoint: 
+			# Whether the endpoint will be served at the next URL (@todo)
+			active: true
+			# The URL where the endpoint will be automatically served (@todo)
+			url: /sparql
+			# The store where triples are to be found (table prefix)
+			store: sandbox
+			# Whether the tables are to be created if non existent
+			autocreate: false
+			timeout: 60
+			read_key: ~
+			write_key: ~
+			limit: 250
+			features: 
+				select:    true
+				construct: true
+				ask:       true
+				describe:  true
+				load:      true
+				insert:    true
+				delete:    true
+				dump:      true
+As of now, you cannot configure the URL from the configuration (there's a hope this will be implemented one day or another). Instead, it will always be served on the following URL once its routes are imported (relatively to what prefix you decided for this bundle's routes): 
+		/sparql/
+If you prefer, just imitate the called controller and do the following in one of your actions: 
+		$this->get('sw_arc2.sparql')->drawEndpoint(); 
+The two methods will output directly the endpoint interface, without any chance for you to catch it. If you need it, you can try: 
+		$this->get('sw_arc2.sparql')->getEndpointData(); 
+However, this is not really tested and could interfere with many things, as ARC2 is doing many things in the hood. This method should probably be reimplemented properly. 
