@@ -13,6 +13,8 @@ class SparqlEndpointController extends Controller
 {
     public function indexAction()
     {
-        $this->get('sw_arc2.sparql')->drawEndpoint(); 
+        // $this->get('sw_arc2.sparql')->drawEndpoint(); 
+        $this->get('sw_arc2'); 
+		\ARC2::getStoreEndpoint()->go(); 
     }
 }

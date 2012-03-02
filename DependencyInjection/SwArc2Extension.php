@@ -23,6 +23,7 @@ class SwArc2Extension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
         $this->bindParameter($container, 'sw_arc2', $config); 
         
+        $container->setParameter('sw_arc2.class', 'Sw\Arc2Bundle\Arc2\Arc2');
         $container->setParameter('sw_arc2.sparql.class', 'Sw\Arc2Bundle\SparqlEndpoint\SparqlEndpoint');
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
