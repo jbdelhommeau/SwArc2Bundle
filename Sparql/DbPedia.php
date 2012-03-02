@@ -4,9 +4,9 @@ namespace Sw\Arc2Bundle\Sparql;
 
 class DbPedia extends \Sw\Arc2Bundle\Sparql\Sparql
 {
-	protected function getOptions()
+	protected function getSparqlEndpoint()
 	{
-		return array('remote_store_endpoint' => 'http://dbpedia.org/sparql');
+		return 'http://dbpedia.org/sparql';
 	}
 
 	public function getInterests($keyword) 

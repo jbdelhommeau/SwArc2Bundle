@@ -4,8 +4,14 @@ namespace Sw\Arc2Bundle\Sparql;
 
 abstract class Sparql
 {
-	// protected: is to be redefined by subclasses. 
-	abstract protected function getOptions(); 
+	// protected: can be redefined by subclasses, only when something more than an 
+	// endpoint must be defined. 
+	protected function getOptions()
+	{
+		return array('remote_store_endpoint' => $this->getSparqlEndpoint());
+	}
+	
+	abstract protected function getSparqlEndpoint(); 
 	
 	private function getStore()
 	{
