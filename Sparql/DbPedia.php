@@ -2,6 +2,11 @@
 
 namespace Sw\Arc2Bundle\Sparql; 
 
+/**
+ * Specific class for DBpedia support. 
+ *
+ * @author Thibaut
+ */
 class DbPedia extends \Sw\Arc2Bundle\Sparql\Sparql
 {
 	protected function getSparqlEndpoint()
@@ -9,6 +14,11 @@ class DbPedia extends \Sw\Arc2Bundle\Sparql\Sparql
 		return 'http://dbpedia.org/sparql';
 	}
 
+	/**
+	 * Returns a set of interests based on the keyword (regexed later). 
+	 *
+	 * Request written by Julien Plu. 
+	 */ 
 	public function getInterests($keyword) 
 	{
 		$q = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>

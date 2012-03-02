@@ -3,7 +3,7 @@
 namespace Sw\Arc2Bundle\Arc2; 
 
 /**
- * Description of SparqlEndpoint
+ * Loading of ARC2. 
  *
  * @author Thibaut
  */
