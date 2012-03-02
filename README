@@ -1,0 +1,5 @@
+To get access to ARC2 classes, configure ARC2's path (config.yml)
+		sw_arc2: 
+			arc2_path: %kernel.root_dir%/../vendor/arc2/
+include this bundle as usual. You will only have to import one service to have access to all ARC2. For example, in a controller: 
+		$this->get('sw_arc2')
