@@ -7,7 +7,7 @@ namespace Sw\Arc2Bundle\Sparql;
  *
  * @author Thibaut
  */
-class Sparql
+class DistantSparqlEndpoint
 {
 	/** 
 	 * Convenience function to make SPARQL requests on an endpoint. 
