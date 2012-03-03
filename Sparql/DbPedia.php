@@ -12,7 +12,7 @@ class DbPedia
 	/** 
 	 * Convenience function to make requests easily on DBpedia. 
 	 */
-	public function request($q)
+	public static function request($q)
 	{
 		return Sparql::request('http://dbpedia.org/sparql', $q); 
 	}
@@ -22,7 +22,7 @@ class DbPedia
 	 *
 	 * Request written by Julien Plu. 
 	 */ 
-	public function getInterests($keyword) 
+	public static function getInterests($keyword) 
 	{
 		$q = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
