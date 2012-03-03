@@ -28,7 +28,6 @@ class Sparql
 	 */
 	public static function requestAdvanced($options, $q)
 	{
-	var_dump(42);
 		return \ARC2::getRemoteStore($options)->query($q, 'rows'); 
 	}
 }
