@@ -10,9 +10,9 @@ namespace Sw\Arc2Bundle\Sparql;
 class DbPedia
 {
 	/** 
-	 * Private convenience function to make requests easily. 
+	 * Convenience function to make requests easily on DBpedia. 
 	 */
-	private function request($q)
+	public function request($q)
 	{
 		return Sparql::request('http://dbpedia.org/sparql', $q); 
 	}
