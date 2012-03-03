@@ -7,11 +7,14 @@ namespace Sw\Arc2Bundle\Sparql;
  *
  * @author Thibaut
  */
-class DbPedia extends \Sw\Arc2Bundle\Sparql\Sparql
+class DbPedia
 {
-	protected function getSparqlEndpoint()
+	/** 
+	 * Private convenience function to make requests easily. 
+	 */
+	private function request($q)
 	{
-		return 'http://dbpedia.org/sparql';
+		return Sparql::request('http://dbpedia.org/sparql', $q); 
 	}
 
 	/**
@@ -28,6 +31,6 @@ WHERE {
     ?x rdfs:label ?interest
     FILTER regex (?interest, "' . $keyword . '", "i") 
 }'; 
-		return $this->request($q, 'rows'); 
+		return self::request($q); 
 	}
 }
