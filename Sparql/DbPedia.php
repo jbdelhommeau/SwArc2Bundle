@@ -14,7 +14,7 @@ class DbPedia
 	 */
 	public static function request($q)
 	{
-		return Sparql::request('http://dbpedia.org/sparql', $q); 
+		return DistantSparqlEndpoint::request('http://dbpedia.org/sparql', $q); 
 	}
 
 	/**
@@ -22,7 +22,7 @@ class DbPedia
 	 *
 	 * Request written by Julien Plu. 
 	 */ 
-	public static function getInterests($keyword) 
+	public static function getInterests($keyword, $limit = 10) 
 	{
 		$q = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
