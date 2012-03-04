@@ -19,6 +19,7 @@ class DbPedia
 
 	/**
 	 * Returns a set of interests based on the keyword (regexed later). 
+	 * Optimised for Virtuoso backend. 
 	 *
 	 * Request written by Julien Plu. 
 	 */ 
@@ -26,10 +27,10 @@ class DbPedia
 	{
 		$q = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-SELECT ?interest 
-WHERE { 
-    ?x rdfs:label ?interest
-    FILTER regex (?interest, "' . $keyword . '", "i") 
+SELECT DISTINCT ?s 
+WHERE {
+    ?s rdfs:label ?o .
+    ?o <bif:contains> "' . $keyword . '" .
 }'; 
 		return self::request($q); 
 	}
