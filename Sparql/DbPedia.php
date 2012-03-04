@@ -18,12 +18,12 @@ class DbPedia
 	}
 
 	/**
-	 * Returns a set of interests based on the keyword (regexed later). 
+	 * Returns a set of rdfs:label based on the keyword (regexed later). 
 	 * Optimised for Virtuoso backend. 
 	 *
 	 * Request written by Julien Plu. 
 	 */ 
-	public static function getInterests($keyword, $limit = 10) 
+	public static function getRdfsLabelRegex($keyword) 
 	{
 		$q = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 

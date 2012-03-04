@@ -8,13 +8,13 @@ Include this bundle as usual. You will only have to import one service to have a
 		
 You want to use DBpedia? Include the ARC2 service, use the convenience class Sw\Arc2Bundle\Sparql\DbPedia: 
 		$this->get('sw_arc2'); 
-		Sw\Arc2Bundle\Sparql\DbPedia::getInterests('Europe');
+		\Sw\Arc2Bundle\Sparql\DbPedia::getRdfsLabelRegex('Europe');
 You can issue arbitrary SPARQL request to DBpedia too: 
 		$this->get('sw_arc2'); 
-		Sw\Arc2Bundle\Sparql\DbPedia::request("your SPARQL request");
+		\Sw\Arc2Bundle\Sparql\DbPedia::request("your SPARQL request");
 You can also use directly the underlying helper class to make queries to other servers: 
 		$this->get('sw_arc2'); 
-		Sw\Arc2Bundle\Sparql\DistantSparqlEndpoint::request("endpoint's URL", "your SPARQL request");
+		\Sw\Arc2Bundle\Sparql\DistantSparqlEndpoint::request("endpoint's URL", "your SPARQL request");
 If you are going to make many requests, it would be best to create a class for this endpoint, and create within static methods for your 
 requests (you could add there a bit of caching, if you need to) - just to make code easier to read. 
 		
